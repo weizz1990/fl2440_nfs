@@ -1,0 +1,17 @@
+#Ash profile
+#vim:syntax=sh
+#No core file by defaults
+#ulimit -S-c 0>/dev/null 2>&1
+
+GREEN="\[\e[32;1m\]"
+RED="\[\e[31;1m\]"
+BLUE="\[\e[34;1m\]"
+CLEAR="\[\e[0m\]"
+PS1="$GREEN\u $BLUE[ $CLEAR\w $BLUE]$RED\$?$CLEAR\$:"
+
+USER="id -un"
+LOGNAME=$USER
+PATH=$PATH
+HOSTNAME='/bin/hostname'
+export USER LOGNAME PS1 PATH
+

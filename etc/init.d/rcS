@@ -1,0 +1,25 @@
+# Start udev
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+runlevel=S
+prevlevel=N
+umask 022
+export PATH runlevel prevlevel
+
+echo "-----------------mount all-----------------"
+mount -a
+echo /sbin/mdev>/proc/sys/kernel/hotplug
+mdev -s
+
+echo "*******************************************"
+echo "	      Kernel version:linux-2.6.35       "
+echo "        Date:2012.11.08			 "
+echo "*******************************************"
+
+/bin/hostname -F /etc/sysconfig/HOSTNAME
+
+# Configure net interface
+/sbin/ifconfig lo 127.0.0.1 up
+/sbin/route add -net 127.0.0.0 netmask 255.0.0.0 lo
+/sbin/ifconfig eth0 192.168.2.2 netmask 255.255.0.0
+/sbin/route add default gw 192.168.2.1
+/bin/mount -t nfs -o intr,nolock,rsize=1024,wsize=1024 192.168.2.1:/home/huniu/nfs /mnt/nfs_client
